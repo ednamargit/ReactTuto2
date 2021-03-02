@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { getMovies } from '../services/fakeMovieService'; 
 import Like from './common/like';
 
-var handleDelete
+// // var handleDelete;
+// var handleLike;
+
 
 class Movies extends Component {
 
@@ -11,13 +13,35 @@ class Movies extends Component {
       this.state = { 
         movies: getMovies()
       };
+      // var handleDelete;
+      // this.handleDelete = this.handleDelete.bind(this);
+      // this.handleLike = this.handleLike(this);
     }
 
-    handleDelete = (movie) => {
+    // handleDelete = (movie) => {
+    //   const movies = this.state.movies.filter(m => m._id !== movie._id);
+    //   //override the properties of the state object
+    //   //if the key and value are the same, we can remove the repetition 
+    //   // this.state({ movies: movies });
+    //   this.setState({ movies });
+    // }
+
+
+    handleDelete(movie) {
       const movies = this.state.movies.filter(m => m._id !== movie._id);
-      //override the properties of the state object
-      //if the key and value are the same, we can remove the repetition 
-      // this.state({ movies: movies });
+      this.setState({ movies });
+    }
+
+    // handleLike = () => {
+    //   console.log('Like clicked');
+    // }
+
+    handleLike(movie) {
+      console.log('Like clicked', movie);
+      const movies = [...this.state.movies]; 
+      const index = movies.indexOf(movie);
+      movies[index] = { ...movies[index] };
+      movies[index].liked = !movies[index].liked;
       this.setState({ movies });
     }
   
@@ -48,7 +72,7 @@ class Movies extends Component {
                   <td>{movie.numberInStock}</td>
                   <td>{movie.dailyRentalRate}</td>
                   <td>
-                    <Like liked={movie.liked} />
+                    <Like liked={movie.liked} onClick={() => this.handleLike(movie)} />
                   </td>
                   <td><button onClick={() => this.handleDelete(movie)} className="btn btn-danger btn-sm">Delete</button></td>
                   </tr>

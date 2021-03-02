@@ -16,14 +16,16 @@ const movies = [
     title: "Die Hard",
     genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
     numberInStock: 5,
-    dailyRentalRate: 2.5
+    dailyRentalRate: 2.5,
+    liked: true
   },
   {
     _id: "5b21ca3eeb7f6fbccd471817",
     title: "Get Out",
     genre: { _id: "5b21ca3eeb7f6fbccd471820", name: "Thriller" },
     numberInStock: 8,
-    dailyRentalRate: 3.5
+    dailyRentalRate: 3.5,
+    liked: true
   },
   {
     _id: "5b21ca3eeb7f6fbccd471819",
