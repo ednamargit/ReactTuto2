@@ -7,6 +7,8 @@ import Customers from './components/customers';
 import Rentals from './components/rentals';
 import NotFound from './components/notFound';
 import NavBar from './components/common/navBar';
+import LoginForm from './components/loginForm';
+import RegisterForm from './components/RegisterForm';
 import './App.css';
 
 //in jsx, if there is nothing between the opening and closing tag, you should use the self closing syntax <Movies />, not <Movies></Movies>
@@ -16,6 +18,8 @@ function App() {
     <NavBar />
     <main className="container">
         <Switch>
+          <Route path="/login" component={LoginForm}/>
+          <Route path="/register" component={RegisterForm}/>
           <Route path="/movies/:id" component={MovieForm}/>
           <Route path="/movies" component={Movies}/>
           <Route path="/customers" component={Customers}/>
