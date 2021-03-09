@@ -5,6 +5,7 @@ import Pagination from "./common/pagination";
 import ListGroup from "./common/listGroup";
 import { paginate } from "../utils/paginate";
 import MoviesTable from "./moviesTable";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -31,24 +32,10 @@ class Movies extends Component {
     this.setState({ movies: getMovies(), genres: genres });
   }
 
-  //Arrow functions do not work properly. We have to use conventional functions
-
-  // handleDelete = (movie) => {
-  //   const movies = this.state.movies.filter(m => m._id !== movie._id);
-  //   //override the properties of the state object
-  //   //if the key and value are the same, we can remove the repetition
-  //   // this.state({ movies: movies });
-  //   this.setState({ movies });
-  // }
-
   handleDelete(movie) {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
   }
-
-  // handleLike = () => {
-  //   console.log('Like clicked');
-  // }
 
   handleLike(movie) {
     console.log("Like clicked", movie);
@@ -63,10 +50,6 @@ class Movies extends Component {
     console.log(page);
     this.setState({ currentPage: page });
   }
-
-  // handleGenreSelect = (genre) => {
-  //   console.log(genre);
-  // }
 
   handleGenreSelect(genre) {
     console.log(genre);
@@ -111,13 +94,14 @@ class Movies extends Component {
         <div className="col-3">
           <ListGroup
             items={this.state.genres}
-            // textProperty = "name"
-            // valueProperty = "_id"
             selectedItem={this.state.selectedGenre}
             onItemSelect={this.handleGenreSelect}
           />
         </div>
         <div className="col">
+          <Link to="/movies/new" className="btn btn-primary" style={{ marginBottom: 20 }}>
+            New Movie
+          </Link>
           <p>Showing {totalCount} movies in the database.</p>
           <MoviesTable
             movies={movies}
