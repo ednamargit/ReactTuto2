@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify'; 
 import Movies from './components/movies';
 import MovieForm from './components/movieForm'; 
 import Customers from './components/customers';
@@ -9,12 +10,14 @@ import NotFound from './components/notFound';
 import NavBar from './components/common/navBar';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/RegisterForm';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 //in jsx, if there is nothing between the opening and closing tag, you should use the self closing syntax <Movies />, not <Movies></Movies>
 function App() {
   return (
    <React.Fragment>
+    <ToastContainer />
     <NavBar />
     <main className="container">
         <Switch>
