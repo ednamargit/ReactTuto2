@@ -13,7 +13,7 @@ export function getMovies() {
 }
 
 export function getMovie(id) {
-  return httpService.get(apiEndpoint + '/' + id); 
+  return httpService.get(movieUrl(id)); 
 }
 
 export function saveMovie(movie, id) {
@@ -24,5 +24,5 @@ export function saveMovie(movie, id) {
 }
 
 export function deleteMovie(id) {
-  return httpService.delete(apiEndpoint + '/' + id); 
+  return httpService.delete(movieUrl(id)); 
 }
