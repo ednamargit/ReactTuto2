@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from './common/form'; 
+import auth from '../services/authService'; 
 
 class LoginForm extends Form {
  
@@ -21,10 +22,21 @@ class LoginForm extends Form {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
-  doSubmit() {
+  async doSubmit() {
     //Call the server
-    console.log("Submitted");
-  }
+    try {
+      const { data } = this.state;
+      await auth.login(data.username, data.password); //JSON Web Tokens
+      //this.props.history.push("/");//Does not do the full reload 
+      window.location = '/'; //Full reload of the application. Our app component will be mounted again (changes of the menu) 
+    } catch (error) {
+      if(error.response && error.response.status === 400) {
+        const errors = {...this.state.errors};
+        errors.username = error.response.data; 
+        this.setState({ errors }); 
+      }
+    }
+  }; 
 
   render() {
     return (

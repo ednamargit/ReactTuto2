@@ -1,6 +1,8 @@
 import React from "react";
-import Joi from "joi-browser";
+import Joi, { errors } from "joi-browser";
 import Form from './common/form'; 
+import * as userService from '../services/userService'; //To import all the functions 
+import auth from '../services/authService'; 
 
 class RegisterForm extends Form {
  
@@ -22,9 +24,20 @@ class RegisterForm extends Form {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
-  doSubmit() {
-    //Call the server
-    console.log("Submitted");
+  async doSubmit() {
+    try{
+      const response = await userService.register(this.state.data);     
+      auth.loginWithJwt(response.headers['x-auth-token']);
+      //this.props.history.push("/");//Does not do the full reload 
+      window.location = '/'; //Full reload of the application. Our app component will be mounted again (changes of the menu) 
+      console.log(response); 
+    } catch(ex){
+      if(ex.response && ex.response.status === 400) {
+        const errors = {...this.state.errors};
+        errors.username = ex.response.data; 
+        this.setState({ errors }); 
+      }
+    }
   }
 
   render() {
