@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from 'react-router-dom';
 import Joi from "joi-browser";
 import Form from './common/form'; 
 import auth from '../services/authService'; 
@@ -28,7 +29,9 @@ class LoginForm extends Form {
       const { data } = this.state;
       await auth.login(data.username, data.password); //JSON Web Tokens
       //this.props.history.push("/");//Does not do the full reload 
-      window.location = '/'; //Full reload of the application. Our app component will be mounted again (changes of the menu) 
+
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : '/'; //Full reload of the application. Our app component will be mounted again (changes of the menu) 
     } catch (error) {
       if(error.response && error.response.status === 400) {
         const errors = {...this.state.errors};
@@ -39,6 +42,9 @@ class LoginForm extends Form {
   }; 
 
   render() {
+    //window.location -> We use it when the user is trying to login, so we reload the app, our app is remounted
+    //and is in the right state in terms of knowing the current user 
+    if(auth.getCurrentUser()) return <Redirect to="/"/>
     return (
       <div className="container">
         <h1>Login</h1>

@@ -11,6 +11,7 @@ import NavBar from './components/common/navBar';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/RegisterForm';
 import Logout from './components/common/logout';
+import ProtectedRoute from './components/common/protectedRoute';
 import auth from './services/authService'; 
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -37,12 +38,9 @@ function App() {
           <Route path="/login" component={LoginForm} />
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={RegisterForm} />
-          <Route 
+          <ProtectedRoute 
             path="/movies/:id" 
-            render={props => {
-              if (Object.keys(user).length === 0) return <Redirect to="/login"/>
-              return <MovieForm {...props} />;
-            }} />
+            component={MovieForm} />
           <Route
             path="/movies"
             render={(props) => <Movies {...props} user={user} />}
